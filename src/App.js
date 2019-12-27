@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import "./App.css";
 import { CounterView } from "./pages/CounterView";
+import { Employees } from "./pages/Employees";
 import { configureStore } from "./store";
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   return (
     <Provider store={store}>
       <CounterView />
+      <Employees />
     </Provider>
   );
 }
