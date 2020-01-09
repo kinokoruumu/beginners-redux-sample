@@ -1,18 +1,20 @@
 import { connect } from "react-redux";
 import { CounterView as Component } from "./CounterView";
 import { increment, decrement, add } from "../../store/modules/counter/actions";
+import { RootState } from "../../store";
+import { Dispatch } from "redux";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: RootState) => {
   return {
     count: state.counter.count
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     increment: () => dispatch(increment()),
     decrement: () => dispatch(decrement()),
-    add: num => dispatch(add(num))
+    add: (num: number) => dispatch(add(num))
   };
 };
 

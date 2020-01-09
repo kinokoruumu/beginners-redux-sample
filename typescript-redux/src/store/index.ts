@@ -5,3 +5,5 @@ export function configureStore() {
   const store = createStore(createRootReducer());
   return store;
 }
+
+export type RootState = ReturnType<ReturnType<typeof createRootReducer>>;
