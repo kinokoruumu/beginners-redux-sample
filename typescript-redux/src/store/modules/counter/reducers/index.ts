@@ -1,10 +1,17 @@
-import { INCREMENT, DECREMENT, ADD } from "../actions";
+import { INCREMENT, DECREMENT, ADD, CounterActions } from "../actions";
 
-const initialState = {
+type CounterState = {
+  count: number;
+};
+
+const initialState: CounterState = {
   count: 0
 };
 
-export function counterReducer(state = initialState, action) {
+export function counterReducer(
+  state: CounterState = initialState,
+  action: CounterActions
+) {
   switch (action.type) {
     case INCREMENT:
       return Object.assign({}, state, {
