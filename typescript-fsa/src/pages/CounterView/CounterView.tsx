@@ -1,11 +1,11 @@
 import React from "react";
-import { increment, decrement, add } from "../../store/modules/counter/actions";
+import { AddPyload } from "../../store/modules/counter/actions";
 
 type Props = {
   count: number;
-  increment: typeof increment;
-  decrement: typeof decrement;
-  add: typeof add;
+  increment: () => void;
+  decrement: () => void;
+  add: (payload: AddPyload) => void;
 };
 export const CounterView: React.FunctionComponent<Props> = ({
   count,

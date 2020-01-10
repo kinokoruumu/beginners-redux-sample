@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { Employees as Component } from "./Employees";
-import { getEmployeesAction } from "../../store/modules/employee/actions";
+import { getEmployees } from "../../store/modules/employee/actions/GetEmployeesAction";
 import { RootState } from "../../store";
 
 export const Employees = connect(
@@ -8,6 +8,6 @@ export const Employees = connect(
     employee: state.employee
   }),
   dispatch => ({
-    getEmployeesAction: () => dispatch(getEmployeesAction() as any)
+    getEmployees: () => dispatch(getEmployees() as any)
   })
 )(Component);
