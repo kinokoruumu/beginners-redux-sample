@@ -12,7 +12,7 @@ const getEmployeesSuccess = payload => ({
   payload
 });
 
-const getEmployeesFaild = () => ({
+const getEmployeesFailed = () => ({
   type: GET_EMPLOYEE_FAILED
 });
 
@@ -21,9 +21,16 @@ export function getEmployeesAction() {
     dispatch(getEmployeesStart());
     try {
       const res = await getEmployees();
-      dispatch(getEmployeesSuccess(res.data));
+
+      const { status, data } = res.data;
+      if (status !== 'success') {
+        dispatch(getEmployeesFailed());
+        return;
+      }
+
+      dispatch(getEmployeesSuccess(data));
     } catch (e) {
-      dispatch(getEmployeesFaild());
+      dispatch(getEmployeesFailed());
     }
   };
 }
