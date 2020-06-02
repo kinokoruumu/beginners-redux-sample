@@ -1,10 +1,10 @@
 import { getEmployees as fetchEmployees } from "../../../../client";
 import { ThunkAction } from "../../../type";
-import { Response } from "../../../../client/types";
+import { Domain } from "../../../../client/types";
 import { actionCreator } from './';
 
 type GetEmployeesParams = void;
-type GetEmployeesSuccess = Response.GetEmployees
+type GetEmployeesSuccess = Domain.Employee[];
 type GetEmployeesFailed = Error;
 
 export const getEmployeesAction = actionCreator.async<
@@ -18,11 +18,18 @@ export function getEmployees(): ThunkAction<void, any> {
     dispatch(getEmployeesAction.started());
     try {
       const res = await fetchEmployees()
+
+      const { status, data } = res.data;
+      if (status !== 'success') {
+        dispatch(getEmployeesAction.failed({ error: new Error(`status is not success: ${status}`) }));
+        return;
+      }
+
       dispatch(getEmployeesAction.done({
-        result: res.data
+        result: data
       }));
     } catch (e) {
-      dispatch(getEmployeesAction.failed(e));
+      dispatch(getEmployeesAction.failed({ error: e }));
     }
   };
 }

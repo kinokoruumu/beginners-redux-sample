@@ -28,7 +28,7 @@ const getEmployeesSuccess = (
 interface GetEmployeesFaild extends Action {
   type: typeof GET_EMPLOYEE_FAILED;
 }
-const getEmployeesFaild = (): GetEmployeesFaild => ({
+const getEmployeesFailed = (): GetEmployeesFaild => ({
   type: GET_EMPLOYEE_FAILED
 });
 
@@ -37,9 +37,16 @@ export function getEmployeesAction(): ThunkAction<void, any> {
     dispatch(getEmployeesStart());
     try {
       const res = await getEmployees();
-      dispatch(getEmployeesSuccess(res.data));
+
+      const { status, data } = res.data;
+      if (status !== 'success') {
+        dispatch(getEmployeesFailed());
+        return;
+      }
+
+      dispatch(getEmployeesSuccess(data));
     } catch (e) {
-      dispatch(getEmployeesFaild());
+      dispatch(getEmployeesFailed());
     }
   };
 }

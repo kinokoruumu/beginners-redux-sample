@@ -9,5 +9,5 @@ export namespace Domain {
 }
 
 export namespace Response {
-  export type GetEmployees = Domain.Employee[];
+  export type GetEmployees = { status: string, data: Domain.Employee[] };
 }
